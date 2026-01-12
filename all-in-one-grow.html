@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0F172A">
+    <title>All In One Grow - Tu Coach de Crecimiento Personal</title>
+    <link rel="manifest" href="manifest.json">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --color-dark: #0F172A;
+            --color-darker: #020617;
+            --color-primary: #3B82F6;
+            --color-primary-light: #60A5FA;
+            --color-accent: #10B981;
+            --color-accent-glow: #34D399;
+            --color-warning: #F59E0B;
+            --color-text: #E2E8F0;
+            --color-text-dim: #94A3B8;
+            --font-display: 'Orbitron', sans-serif;
+            --font-body: 'Work Sans', sans-serif;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-body);
+            background: var(--color-darker);
+            color: var(--color-text);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+        
+        /* Animated Background */
+        .bg-animated {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(135deg, var(--color-darker) 0%, var(--color-dark) 50%, #1E293B 100%);
+        }
+        
+        .bg-animated::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 60%;
+            height: 60%;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, transparent 70%);
+            animation: float 20s ease-in-out infinite;
+            border-radius: 50%;
+        }
+        
+        .bg-animated::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 50%;
+            height: 50%;
+            background: radial-gradient(circle, rgba(16, 185, 129, 0.1) 0%, transparent 70%);
+            animation: float 15s ease-in-out infinite reverse;
+            border-radius: 50%;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(50px, 50px) scale(1.1); }
+        }
+        
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 3rem 0 2rem;
+            animation: slideDown 0.8s ease-out;
+        }
+        
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .logo {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        
+        .tagline {
+            font-size: 1.1rem;
+            color: var(--color-text-dim);
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+        
+        /* Welcome Section */
+        .welcome-section {
+            margin-top: 3rem;
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+        
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .welcome-card {
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 24px;
+            padding: 3rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            transition: all 0.3s ease;
+        }
+        
+        .welcome-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(59, 130, 246, 0.4);
+            box-shadow: 0 25px 70px rgba(59, 130, 246, 0.2);
+        }
+        
+        .welcome-title {
+            font-family: var(--font-display);
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #FFFFFF 0%, var(--color-primary-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .welcome-text {
+            font-size: 1.2rem;
+            line-height: 1.8;
+            color: var(--color-text);
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+        
+        .welcome-text strong {
+            color: var(--color-accent-glow);
+            font-weight: 600;
+        }
+        
+        /* Features Grid */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .feature-item {
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 16px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .feature-item:hover {
+            background: rgba(59, 130, 246, 0.15);
+            transform: translateY(-3px);
+            border-color: var(--color-primary);
+        }
+        
+        .feature-icon {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+        }
+        
+        .feature-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--color-primary-light);
+        }
+        
+        .feature-desc {
+            font-size: 0.95rem;
+            color: var(--color-text-dim);
+            line-height: 1.6;
+        }
+        
+        /* CTA Button */
+        .cta-section {
+            text-align: center;
+            margin-top: 3rem;
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+        
+        .btn-primary {
+            display: inline-block;
+            padding: 1.2rem 3rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+            font-family: var(--font-display);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s;
+        }
+        
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(59, 130, 246, 0.6);
+        }
+        
+        .btn-primary:active {
+            transform: translateY(-1px) scale(1.02);
+        }
+        
+        /* Daily Quote */
+        .daily-quote {
+            margin-top: 3rem;
+            text-align: center;
+            padding: 2rem;
+            background: rgba(16, 185, 129, 0.1);
+            border-left: 4px solid var(--color-accent);
+            border-radius: 12px;
+            animation: fadeInUp 1s ease-out 0.9s both;
+        }
+        
+        .quote-text {
+            font-size: 1.3rem;
+            font-style: italic;
+            color: var(--color-text);
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+        
+        .quote-author {
+            font-size: 1rem;
+            color: var(--color-accent-glow);
+            font-weight: 600;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .welcome-card {
+                padding: 2rem;
+            }
+            
+            .welcome-title {
+                font-size: 2rem;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* Loading Animation */
+        .loading {
+            display: none;
+            text-align: center;
+            margin-top: 2rem;
+        }
+        
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(59, 130, 246, 0.2);
+            border-top-color: var(--color-primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 3rem 0 2rem;
+            color: var(--color-text-dim);
+            font-size: 0.9rem;
+            margin-top: 4rem;
+        }
+        
+        .footer-brand {
+            font-family: var(--font-display);
+            color: var(--color-primary-light);
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animated"></div>
+    
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1 class="logo">All In One Grow</h1>
+            <p class="tagline">Tu Coach Personal de Crecimiento 24/7</p>
+        </header>
+        
+        <!-- Welcome Section -->
+        <section class="welcome-section">
+            <div class="welcome-card">
+                <h2 class="welcome-title">¡Bienvenido a tu Transformación!</h2>
+                <p class="welcome-text">
+                    All In One Grow no es solo otra app de productividad. Es tu <strong>compañero inteligente</strong> que te acompaña día a día, 
+                    te motiva cuando más lo necesitas, y celebra cada pequeña victoria contigo.
+                </p>
+                <p class="welcome-text">
+                    <strong>All In One Grow nace de una verdad simple pero poderosa:</strong> el día que me convertí en padre, entendí que no podía seguir posponiendo mis sueños. 
+                    Cada día importa. Cada acción cuenta. Este sistema transforma tus grandes metas en pasos diarios concretos, 
+                    porque el éxito no es un evento mágico, es el resultado de lo que haces <strong>CADA DÍA</strong>.
+                </p>
+                
+                <!-- Features -->
+                <div class="features-grid">
+                    <div class="feature-item">
+                        <div class="feature-icon">🎯</div>
+                        <h3 class="feature-title">Metas Inteligentes</h3>
+                        <p class="feature-desc">Divide tus objetivos anuales en pasos mensuales, semanales y diarios</p>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="feature-icon">💪</div>
+                        <h3 class="feature-title">Motivación Diaria</h3>
+                        <p class="feature-desc">365 frases únicas que te impulsan cada mañana a las 5 AM</p>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="feature-icon">📊</div>
+                        <h3 class="feature-title">Seguimiento Real</h3>
+                        <p class="feature-desc">La app te pregunta, te guía y celebra tus avances</p>
+                    </div>
+                    
+                    <div class="feature-item">
+                        <div class="feature-icon">🔔</div>
+                        <h3 class="feature-title">7 Recordatorios</h3>
+                        <p class="feature-desc">Notificaciones personalizables cada 3 horas para mantenerte enfocado</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Daily Quote -->
+        <section class="daily-quote">
+            <p class="quote-text">"El primer paso es siempre el más importante. Hoy comienzas tu transformación."</p>
+            <p class="quote-author">— Frase del día 1 de 365</p>
+        </section>
+        
+        <!-- CTA -->
+        <section class="cta-section">
+            <button class="btn-primary" onclick="startJourney()">
+                Comenzar Mi Viaje
+            </button>
+            <div class="loading">
+                <div class="loading-spinner"></div>
+                <p style="margin-top: 1rem; color: var(--color-text-dim);">Preparando tu experiencia...</p>
+            </div>
+        </section>
+        
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Un producto de <span class="footer-brand">A&B EcoTech</span></p>
+            <p style="margin-top: 0.5rem; font-size: 0.8rem;">Transformando vidas, un día a la vez</p>
+        </footer>
+    </div>
+    
+    <script>
+        // Simple start function (will be enhanced)
+        function startJourney() {
+            const btn = document.querySelector('.btn-primary');
+            const loading = document.querySelector('.loading');
+            
+            btn.style.display = 'none';
+            loading.style.display = 'block';
+            
+            // Simulate loading
+            setTimeout(() => {
+                alert('¡Próximamente! Estamos conectando con tu Google Sheet y preparando tu dashboard personalizado.');
+                btn.style.display = 'inline-block';
+                loading.style.display = 'none';
+            }, 2000);
+        }
+        
+        // Add smooth scroll behavior
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+        
+        // Add parallax effect to background
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const bg = document.querySelector('.bg-animated');
+            if (bg) {
+                bg.style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
+        });
+    </script>
+</body>
+</html>

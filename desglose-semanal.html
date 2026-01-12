@@ -1,0 +1,1054 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0F172A">
+    <title>Objetivos Semanales - All In One Grow</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --color-dark: #0F172A;
+            --color-darker: #020617;
+            --color-primary: #3B82F6;
+            --color-primary-light: #60A5FA;
+            --color-accent: #10B981;
+            --color-accent-glow: #34D399;
+            --color-warning: #F59E0B;
+            --color-text: #E2E8F0;
+            --color-text-dim: #94A3B8;
+            --font-display: 'Orbitron', sans-serif;
+            --font-body: 'Work Sans', sans-serif;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-body);
+            background: var(--color-darker);
+            color: var(--color-text);
+            min-height: 100vh;
+        }
+        
+        /* Animated Background */
+        .bg-animated {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(135deg, var(--color-darker) 0%, var(--color-dark) 50%, #1E293B 100%);
+        }
+        
+        .bg-animated::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 60%;
+            height: 60%;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, transparent 70%);
+            animation: float 20s ease-in-out infinite;
+            border-radius: 50%;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(50px, 50px) scale(1.1); }
+        }
+        
+        /* Container */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 2rem 0;
+            animation: slideDown 0.8s ease-out;
+        }
+        
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .logo {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+        
+        /* Progress Bar */
+        .progress-container {
+            margin: 2rem 0;
+            animation: fadeIn 1s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .progress-bar-container {
+            width: 100%;
+            height: 6px;
+            background: rgba(59, 130, 246, 0.2);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 0.5rem;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+            border-radius: 10px;
+            transition: width 0.5s ease;
+            box-shadow: 0 0 10px var(--color-primary);
+        }
+        
+        .progress-text {
+            text-align: center;
+            color: var(--color-text-dim);
+            font-size: 0.9rem;
+        }
+        
+        /* Main Card */
+        .main-card {
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 24px;
+            padding: 3rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .section-title {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #FFFFFF 0%, var(--color-primary-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--color-text-dim);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+        
+        /* Week Display */
+        .week-display {
+            text-align: center;
+            padding: 1.5rem;
+            background: rgba(59, 130, 246, 0.1);
+            border: 2px solid var(--color-primary);
+            border-radius: 16px;
+            margin-bottom: 2rem;
+        }
+        
+        .week-title {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .week-dates {
+            color: var(--color-text-dim);
+            font-size: 0.95rem;
+            margin-top: 0.5rem;
+        }
+        
+        /* Weekly Goals List */
+        .weekly-goals-list {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+        
+        .weekly-goal-card {
+            background: rgba(30, 41, 59, 0.8);
+            border: 2px solid rgba(59, 130, 246, 0.3);
+            border-radius: 16px;
+            padding: 2rem;
+            animation: slideIn 0.5s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        .goal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .goal-name {
+            font-family: var(--font-display);
+            font-size: 1.3rem;
+            color: var(--color-primary-light);
+        }
+        
+        .goal-type-badge {
+            padding: 0.4rem 1rem;
+            background: rgba(16, 185, 129, 0.2);
+            border: 1px solid var(--color-accent);
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: var(--color-accent-glow);
+            font-weight: 600;
+        }
+        
+        /* Monthly Context */
+        .monthly-context {
+            background: rgba(15, 23, 42, 0.4);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            border-left: 3px solid var(--color-warning);
+        }
+        
+        .monthly-context-label {
+            font-size: 0.85rem;
+            color: var(--color-warning);
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+        }
+        
+        .monthly-context-text {
+            color: var(--color-text);
+            font-size: 0.95rem;
+        }
+        
+        /* Form Elements */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-label {
+            display: block;
+            color: var(--color-text);
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 1rem 1.2rem;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 12px;
+            color: var(--color-text);
+            font-family: var(--font-body);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+            background: rgba(15, 23, 42, 0.8);
+        }
+        
+        .form-hint {
+            font-size: 0.85rem;
+            color: var(--color-text-dim);
+            margin-top: 0.3rem;
+            font-style: italic;
+        }
+        
+        /* Smart Calculation Display */
+        .calculation-display {
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(59, 130, 246, 0.1));
+            border: 2px solid var(--color-accent);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-top: 1rem;
+            display: none;
+        }
+        
+        .calculation-display.show {
+            display: block;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        .calculation-title {
+            font-weight: 600;
+            color: var(--color-accent-glow);
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+        
+        .calculation-result {
+            font-size: 2rem;
+            font-weight: 900;
+            font-family: var(--font-display);
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+        }
+        
+        .calculation-explanation {
+            color: var(--color-text-dim);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+        
+        /* Type-specific sections */
+        .type-specific-form {
+            display: none;
+        }
+        
+        .type-specific-form.show {
+            display: block;
+        }
+        
+        /* Info boxes */
+        .info-box {
+            background: rgba(59, 130, 246, 0.1);
+            border-left: 4px solid var(--color-primary);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+        }
+        
+        .info-box-title {
+            font-weight: 600;
+            color: var(--color-primary-light);
+            margin-bottom: 0.5rem;
+        }
+        
+        .info-box-text {
+            color: var(--color-text);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        
+        /* Navigation Buttons */
+        .nav-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 3rem;
+        }
+        
+        .btn {
+            flex: 1;
+            padding: 1.2rem 2rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            font-family: var(--font-display);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-secondary {
+            background: rgba(148, 163, 184, 0.2);
+            border: 2px solid var(--color-text-dim);
+            color: var(--color-text-dim);
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(148, 163, 184, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
+            color: white;
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.4);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(59, 130, 246, 0.6);
+        }
+        
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .main-card {
+                padding: 1.5rem;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+            }
+            
+            .nav-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animated"></div>
+    
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1 class="logo">ALL IN ONE GROW</h1>
+        </header>
+        
+        <!-- Progress -->
+        <div class="progress-container">
+            <div class="progress-bar-container">
+                <div class="progress-fill" style="width: 75%"></div>
+            </div>
+            <p class="progress-text">Paso 3 de 4: Define tus Objetivos de esta Semana</p>
+        </div>
+        
+        <!-- Main Card -->
+        <div class="main-card">
+            <h2 class="section-title">Planificación Semanal Inteligente</h2>
+            <p class="section-subtitle">
+                La app calculará automáticamente qué necesitas hacer esta semana según el tipo de meta.
+            </p>
+            
+            <!-- Week Display -->
+            <div class="week-display">
+                <div class="week-title" id="weekNumber">Semana 2 de 2025</div>
+                <div class="week-dates" id="weekDates">12 - 18 de Enero</div>
+            </div>
+            
+            <!-- Weekly Goals -->
+            <div class="weekly-goals-list" id="weeklyGoalsList">
+                <!-- Goals will be loaded here -->
+            </div>
+            
+            <!-- Navigation -->
+            <div class="nav-buttons">
+                <button class="btn btn-secondary" onclick="goBack()">
+                    ← Volver
+                </button>
+                <button class="btn btn-primary" id="nextBtn" onclick="saveAndContinue()" disabled>
+                    Ir al Dashboard →
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        const API_URL = 'https://script.google.com/macros/s/AKfycbwuSntFBL1Fm0iySQs-yYqN9oIu7WWYeng2Qm3ZJMG6m4FJRF4jm3UpF2HASIoNriG35g/exec';
+        
+        // Get user data
+        const userId = localStorage.getItem('aio_userId');
+        const metas = JSON.parse(localStorage.getItem('aio_metas') || '[]');
+        const objetivosMensuales = JSON.parse(localStorage.getItem('aio_objetivos_mensuales') || '[]');
+        
+        let weeklyGoals = [];
+        
+        // Tipos de meta detectables
+        const META_TYPES = {
+            LIBRO_PAGINAS: 'libro_paginas',        // Libro con páginas específicas
+            LECCION_DIARIA: 'leccion_diaria',      // Diario para Estoicos, etc.
+            EJERCICIO: 'ejercicio',                 // Ejercicio, gym
+            IDIOMA: 'idioma',                       // Aprender idioma
+            HABITO_DIARIO: 'habito_diario',        // Cualquier hábito diario
+            PROYECTO: 'proyecto',                   // Crear, desarrollar algo
+            CANTIDAD_TIEMPO: 'cantidad_tiempo'      // X horas de algo
+        };
+        
+        // Initialize
+        window.addEventListener('DOMContentLoaded', () => {
+            setWeekInfo();
+            loadMonthlyGoals();
+        });
+        
+        // Set week information
+        function setWeekInfo() {
+            const now = new Date();
+            const weekNumber = getWeekNumber(now);
+            const { start, end } = getWeekDates(now);
+            
+            document.getElementById('weekNumber').textContent = `Semana ${weekNumber} de ${now.getFullYear()}`;
+            document.getElementById('weekDates').textContent = `${formatDate(start)} - ${formatDate(end)}`;
+        }
+        
+        // Get week number
+        function getWeekNumber(date) {
+            const firstDay = new Date(date.getFullYear(), 0, 1);
+            const days = Math.floor((date - firstDay) / (24 * 60 * 60 * 1000));
+            return Math.ceil((days + firstDay.getDay() + 1) / 7);
+        }
+        
+        // Get week dates
+        function getWeekDates(date) {
+            const day = date.getDay();
+            const diff = date.getDate() - day + (day === 0 ? -6 : 1); // Lunes
+            const start = new Date(date.setDate(diff));
+            const end = new Date(start);
+            end.setDate(start.getDate() + 6);
+            return { start, end };
+        }
+        
+        // Format date
+        function formatDate(date) {
+            const months = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'];
+            return `${date.getDate()} de ${months[date.getMonth()]}`;
+        }
+        
+        // Load monthly goals and detect types
+        function loadMonthlyGoals() {
+            const list = document.getElementById('weeklyGoalsList');
+            
+            if (!objetivosMensuales || objetivosMensuales.length === 0) {
+                list.innerHTML = `
+                    <div style="text-align: center; padding: 2rem; color: var(--color-text-dim);">
+                        <p>No se encontraron objetivos mensuales.</p>
+                        <button class="btn btn-primary" onclick="window.location.href='desglose-mensual.html'" 
+                                style="margin-top: 1rem; width: auto; padding: 1rem 2rem;">
+                            Configurar Objetivos Mensuales
+                        </button>
+                    </div>
+                `;
+                return;
+            }
+            
+            list.innerHTML = objetivosMensuales.map((obj, index) => {
+                const tipo = detectarTipoMeta(obj.objetivoMensual);
+                const meta = metas.find(m => m.nombre === obj.metaAnual);
+                
+                return createGoalCard(obj, tipo, index, meta);
+            }).join('');
+            
+            weeklyGoals = new Array(objetivosMensuales.length).fill(null);
+            updateNextButton();
+        }
+        
+        // Detect goal type
+        function detectarTipoMeta(texto) {
+            const textoLower = texto.toLowerCase();
+            
+            // Leccion diaria
+            if (textoLower.includes('diario') || textoLower.includes('día a día') || 
+                textoLower.includes('daily') || textoLower.includes('una lección')) {
+                return META_TYPES.LECCION_DIARIA;
+            }
+            
+            // Libro con páginas
+            if ((textoLower.includes('libro') || textoLower.includes('leer')) && 
+                (textoLower.includes('página') || /\d+\s*pág/.test(textoLower))) {
+                return META_TYPES.LIBRO_PAGINAS;
+            }
+            
+            // Ejercicio
+            if (textoLower.includes('ejercicio') || textoLower.includes('gym') || 
+                textoLower.includes('entrenar') || textoLower.includes('fitness')) {
+                return META_TYPES.EJERCICIO;
+            }
+            
+            // Idioma
+            if (textoLower.includes('inglés') || textoLower.includes('frances') || 
+                textoLower.includes('aleman') || textoLower.includes('idioma') ||
+                textoLower.includes('palabras')) {
+                return META_TYPES.IDIOMA;
+            }
+            
+            // Proyecto
+            if (textoLower.includes('crear') || textoLower.includes('desarrollar') || 
+                textoLower.includes('construir') || textoLower.includes('proyecto')) {
+                return META_TYPES.PROYECTO;
+            }
+            
+            // Hábito diario
+            if (textoLower.includes('todos los días') || textoLower.includes('cada día')) {
+                return META_TYPES.HABITO_DIARIO;
+            }
+            
+            // Default: Cantidad o tiempo
+            return META_TYPES.CANTIDAD_TIEMPO;
+        }
+        
+        // Create goal card based on type
+        function createGoalCard(objetivo, tipo, index, meta) {
+            const tipoNombre = getTipoNombre(tipo);
+            const tipoIcon = getTipoIcon(tipo);
+            
+            return `
+                <div class="weekly-goal-card" style="animation-delay: ${index * 0.1}s">
+                    <div class="goal-header">
+                        <div class="goal-name">${tipoIcon} ${objetivo.metaAnual}</div>
+                        <div class="goal-type-badge">${tipoNombre}</div>
+                    </div>
+                    
+                    <div class="monthly-context">
+                        <div class="monthly-context-label">📌 Objetivo de Este Mes:</div>
+                        <div class="monthly-context-text">${objetivo.objetivoMensual}</div>
+                    </div>
+                    
+                    ${renderTipoForm(tipo, index, objetivo)}
+                </div>
+            `;
+        }
+        
+        // Render form based on type
+        function renderTipoForm(tipo, index, objetivo) {
+            switch(tipo) {
+                case META_TYPES.LIBRO_PAGINAS:
+                    return renderLibroForm(index);
+                
+                case META_TYPES.LECCION_DIARIA:
+                    return renderLeccionDiariaForm(index);
+                
+                case META_TYPES.EJERCICIO:
+                    return renderEjercicioForm(index);
+                
+                case META_TYPES.IDIOMA:
+                    return renderIdiomaForm(index);
+                
+                case META_TYPES.PROYECTO:
+                    return renderProyectoForm(index);
+                
+                case META_TYPES.HABITO_DIARIO:
+                    return renderHabitoDiarioForm(index);
+                
+                default:
+                    return renderGenericoForm(index);
+            }
+        }
+        
+        // Libro con páginas
+        function renderLibroForm(index) {
+            return `
+                <div class="info-box">
+                    <div class="info-box-title">📚 Sistema Inteligente de Lectura</div>
+                    <div class="info-box-text">
+                        Ingresa las páginas totales y en cuántos días quieres terminarlo. 
+                        La app calculará cuántas páginas debes leer por día y esta semana.
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">¿Cuántas páginas tiene el libro?</label>
+                    <input 
+                        type="number" 
+                        class="form-input" 
+                        id="paginas-total-${index}"
+                        placeholder="Ejemplo: 320"
+                        onchange="calcularLibro(${index})"
+                    >
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">¿En cuántos días quieres terminarlo?</label>
+                    <input 
+                        type="number" 
+                        class="form-input" 
+                        id="dias-total-${index}"
+                        placeholder="Ejemplo: 30"
+                        onchange="calcularLibro(${index})"
+                    >
+                    <p class="form-hint">Sé realista. Mejor 30 días y cumplirlo que 10 y frustrarte.</p>
+                </div>
+                
+                <div class="calculation-display" id="calc-${index}">
+                    <div class="calculation-title">📊 Tu Plan de Lectura:</div>
+                    <div class="calculation-result" id="calc-result-${index}">--</div>
+                    <div class="calculation-explanation" id="calc-explanation-${index}"></div>
+                </div>
+            `;
+        }
+        
+        // Lección diaria (como Diario para Estoicos)
+        function renderLeccionDiariaForm(index) {
+            return `
+                <div class="info-box">
+                    <div class="info-box-title">📖 Lectura Diaria</div>
+                    <div class="info-box-text">
+                        Perfecto para libros como "Diario para Estoicos" que tienen una lección por día.
+                    </div>
+                </div>
+                
+                <div class="calculation-display show">
+                    <div class="calculation-title">✅ Plan de Esta Semana:</div>
+                    <div class="calculation-result">7 lecciones</div>
+                    <div class="calculation-explanation">
+                        📅 Una lección cada día (Lun-Dom)<br>
+                        🎯 La app te preguntará diariamente: "¿Leíste la lección de hoy?"<br>
+                        📊 Seguimiento: Día X de 365
+                    </div>
+                </div>
+            `;
+        }
+        
+        // Ejercicio
+        function renderEjercicioForm(index) {
+            return `
+                <div class="info-box">
+                    <div class="info-box-title">💪 Seguimiento de Ejercicio</div>
+                    <div class="info-box-text">
+                        Define cuántos días a la semana quieres hacer ejercicio.
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">¿Cuántos días a la semana?</label>
+                    <input 
+                        type="number" 
+                        class="form-input" 
+                        id="dias-ejercicio-${index}"
+                        placeholder="Ejemplo: 4"
+                        min="1"
+                        max="7"
+                        onchange="calcularEjercicio(${index})"
+                    >
+                    <p class="form-hint">La app te preguntará cada día si hiciste ejercicio.</p>
+                </div>
+                
+                <div class="calculation-display" id="calc-${index}">
+                    <div class="calculation-title">🎯 Meta de Esta Semana:</div>
+                    <div class="calculation-result" id="calc-result-${index}">--</div>
+                    <div class="calculation-explanation" id="calc-explanation-${index}"></div>
+                </div>
+            `;
+        }
+        
+        // Idioma
+        function renderIdiomaForm(index) {
+            return `
+                <div class="info-box">
+                    <div class="info-box-title">🗣️ Aprendizaje de Idioma</div>
+                    <div class="info-box-text">
+                        Define cuántas palabras o minutos de práctica quieres por semana.
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">¿Cuántas palabras nuevas esta semana?</label>
+                    <input 
+                        type="number" 
+                        class="form-input" 
+                        id="palabras-semana-${index}"
+                        placeholder="Ejemplo: 50"
+                        onchange="calcularIdioma(${index})"
+                    >
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">¿Cuántos minutos de práctica por día?</label>
+                    <input 
+                        type="number" 
+                        class="form-input" 
+                        id="minutos-dia-${index}"
+                        placeholder="Ejemplo: 30"
+                        onchange="calcularIdioma(${index})"
+                    >
+                </div>
+                
+                <div class="calculation-display" id="calc-${index}">
+                    <div class="calculation-title">🎯 Plan de Esta Semana:</div>
+                    <div class="calculation-result" id="calc-result-${index}">--</div>
+                    <div class="calculation-explanation" id="calc-explanation-${index}"></div>
+                </div>
+            `;
+        }
+        
+        // Proyecto
+        function renderProyectoForm(index) {
+            return `
+                <div class="info-box">
+                    <div class="info-box-title">🚀 Proyecto</div>
+                    <div class="info-box-text">
+                        Define qué avance concreto harás esta semana.
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">¿Qué harás esta semana?</label>
+                    <input 
+                        type="text" 
+                        class="form-input" 
+                        id="proyecto-semana-${index}"
+                        placeholder="Ejemplo: Completar módulo 1 del curso"
+                        onchange="guardarObjetivo(${index}, this.value, 'proyecto')"
+                    >
+                </div>
+            `;
+        }
+        
+        // Hábito diario
+        function renderHabitoDiarioForm(index) {
+            return `
+                <div class="calculation-display show">
+                    <div class="calculation-title">✅ Plan de Esta Semana:</div>
+                    <div class="calculation-result">7 días</div>
+                    <div class="calculation-explanation">
+                        📅 Todos los días de la semana<br>
+                        🎯 La app te preguntará diariamente si cumpliste este hábito
+                    </div>
+                </div>
+            `;
+        }
+        
+        // Genérico
+        function renderGenericoForm(index) {
+            return `
+                <div class="form-group">
+                    <label class="form-label">¿Qué harás esta semana para esta meta?</label>
+                    <input 
+                        type="text" 
+                        class="form-input" 
+                        id="generico-semana-${index}"
+                        placeholder="Escribe tu objetivo para esta semana..."
+                        onchange="guardarObjetivo(${index}, this.value, 'generico')"
+                    >
+                </div>
+            `;
+        }
+        
+        // Calculate libro
+        function calcularLibro(index) {
+            const paginasTotal = parseInt(document.getElementById(`paginas-total-${index}`).value);
+            const diasTotal = parseInt(document.getElementById(`dias-total-${index}`).value);
+            
+            if (paginasTotal && diasTotal) {
+                const paginasPorDia = (paginasTotal / diasTotal).toFixed(1);
+                const paginasSemana = Math.ceil(paginasPorDia * 7);
+                
+                const calcDiv = document.getElementById(`calc-${index}`);
+                calcDiv.classList.add('show');
+                
+                document.getElementById(`calc-result-${index}`).textContent = `${paginasSemana} páginas`;
+                document.getElementById(`calc-explanation-${index}`).innerHTML = `
+                    📖 Total: ${paginasTotal} páginas en ${diasTotal} días<br>
+                    📊 Necesitas leer ${paginasPorDia} páginas por día<br>
+                    📅 Esta semana: ${paginasSemana} páginas (${paginasPorDia} × 7 días)
+                `;
+                
+                guardarObjetivo(index, { paginasTotal, diasTotal, paginasPorDia, paginasSemana }, 'libro');
+            }
+        }
+        
+        // Calculate ejercicio
+        function calcularEjercicio(index) {
+            const diasSemana = parseInt(document.getElementById(`dias-ejercicio-${index}`).value);
+            
+            if (diasSemana) {
+                const calcDiv = document.getElementById(`calc-${index}`);
+                calcDiv.classList.add('show');
+                
+                document.getElementById(`calc-result-${index}`).textContent = `${diasSemana} días`;
+                document.getElementById(`calc-explanation-${index}`).innerHTML = `
+                    💪 Harás ejercicio ${diasSemana} de 7 días<br>
+                    🎯 La app te preguntará cada día: "¿Hiciste ejercicio hoy?"<br>
+                    📊 Progreso: X/${diasSemana} días completados
+                `;
+                
+                guardarObjetivo(index, { diasSemana }, 'ejercicio');
+            }
+        }
+        
+        // Calculate idioma
+        function calcularIdioma(index) {
+            const palabrasSemana = parseInt(document.getElementById(`palabras-semana-${index}`).value) || 0;
+            const minutosDia = parseInt(document.getElementById(`minutos-dia-${index}`).value) || 0;
+            
+            if (palabrasSemana || minutosDia) {
+                const calcDiv = document.getElementById(`calc-${index}`);
+                calcDiv.classList.add('show');
+                
+                const palabrasDia = palabrasSemana > 0 ? Math.ceil(palabrasSemana / 7) : 0;
+                
+                document.getElementById(`calc-result-${index}`).textContent = 
+                    palabrasSemana > 0 ? `${palabrasSemana} palabras` : `${minutosDia * 7} minutos`;
+                
+                document.getElementById(`calc-explanation-${index}`).innerHTML = `
+                    ${palabrasSemana > 0 ? `📚 ${palabrasDia} palabras nuevas por día<br>` : ''}
+                    ${minutosDia > 0 ? `⏱️ ${minutosDia} minutos de práctica diaria<br>` : ''}
+                    📅 Total semanal: ${palabrasSemana} palabras + ${minutosDia * 7} minutos
+                `;
+                
+                guardarObjetivo(index, { palabrasSemana, minutosDia, palabrasDia }, 'idioma');
+            }
+        }
+        
+        // Guardar objetivo
+        function guardarObjetivo(index, data, tipo) {
+            weeklyGoals[index] = { tipo, data };
+            updateNextButton();
+        }
+        
+        // Update next button
+        function updateNextButton() {
+            const nextBtn = document.getElementById('nextBtn');
+            const allFilled = weeklyGoals.every(g => g !== null);
+            nextBtn.disabled = !allFilled;
+        }
+        
+        // Get tipo nombre
+        function getTipoNombre(tipo) {
+            const nombres = {
+                [META_TYPES.LIBRO_PAGINAS]: 'Libro',
+                [META_TYPES.LECCION_DIARIA]: 'Lectura Diaria',
+                [META_TYPES.EJERCICIO]: 'Ejercicio',
+                [META_TYPES.IDIOMA]: 'Idioma',
+                [META_TYPES.PROYECTO]: 'Proyecto',
+                [META_TYPES.HABITO_DIARIO]: 'Hábito Diario',
+                [META_TYPES.CANTIDAD_TIEMPO]: 'Otro'
+            };
+            return nombres[tipo] || 'Otro';
+        }
+        
+        // Get tipo icon
+        function getTipoIcon(tipo) {
+            const icons = {
+                [META_TYPES.LIBRO_PAGINAS]: '📚',
+                [META_TYPES.LECCION_DIARIA]: '📖',
+                [META_TYPES.EJERCICIO]: '💪',
+                [META_TYPES.IDIOMA]: '🗣️',
+                [META_TYPES.PROYECTO]: '🚀',
+                [META_TYPES.HABITO_DIARIO]: '✅',
+                [META_TYPES.CANTIDAD_TIEMPO]: '⭐'
+            };
+            return icons[tipo] || '⭐';
+        }
+        
+        // Save and continue
+        async function saveAndContinue() {
+            const nextBtn = document.getElementById('nextBtn');
+            nextBtn.disabled = true;
+            nextBtn.textContent = 'Guardando...';
+            
+            try {
+                const now = new Date();
+                const weekNumber = getWeekNumber(now);
+                const año = now.getFullYear();
+                
+                // Preparar objetivos para Google Sheets
+                const objetivosParaGuardar = weeklyGoals.map((goal, index) => ({
+                    metaMensualId: objetivosMensuales[index]?.id || '',
+                    tipo: goal.tipo,
+                    data: goal.data,
+                    descripcion: objetivosMensuales[index]?.objetivoMensual || ''
+                }));
+                
+                // Guardar en Google Sheets
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'text/plain',
+                    },
+                    body: JSON.stringify({
+                        action: 'guardarObjetivosSemanales',
+                        userId: userId,
+                        semana: weekNumber,
+                        año: año,
+                        objetivos: objetivosParaGuardar
+                    })
+                });
+                
+                const data = await response.json();
+                
+                // Guardar en localStorage
+                localStorage.setItem('aio_objetivos_semanales', JSON.stringify(weeklyGoals));
+                
+                if (data.success) {
+                    alert(`✅ ¡Perfecto!
+
+Tu plan semanal está listo.
+
+✅ Guardado en Google Sheets
+✅ ${data.objetivosIds.length} objetivo(s) configurado(s)
+
+La app ahora sabe exactamente qué preguntarte cada día según el tipo de meta.
+
+¡Vamos al dashboard!`);
+                    
+                    window.location.href = 'dashboard.html';
+                } else {
+                    throw new Error(data.message || 'Error al guardar');
+                }
+                
+            } catch (error) {
+                console.error('Error:', error);
+                
+                // Guardar localmente como respaldo
+                localStorage.setItem('aio_objetivos_semanales', JSON.stringify(weeklyGoals));
+                
+                alert(`⚠️ Plan semanal guardado localmente
+
+Hubo un problema con la sincronización, pero tu plan está seguro.
+Puedes continuar.`);
+                
+                window.location.href = 'dashboard.html';
+                
+            } finally {
+                nextBtn.disabled = false;
+                nextBtn.textContent = 'Ir al Dashboard →';
+            }
+        }
+        
+        // Go back
+        function goBack() {
+            if (confirm('¿Seguro que quieres volver? Se perderán los cambios.')) {
+                window.history.back();
+            }
+        }
+        
+        // Auto-fill for lecciones diarias y habitos
+        window.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                objetivosMensuales.forEach((obj, index) => {
+                    const tipo = detectarTipoMeta(obj.objetivoMensual);
+                    if (tipo === META_TYPES.LECCION_DIARIA || tipo === META_TYPES.HABITO_DIARIO) {
+                        guardarObjetivo(index, { auto: true }, tipo);
+                    }
+                });
+            }, 1000);
+        });
+    </script>
+</body>
+</html>

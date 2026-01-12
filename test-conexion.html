@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test de Conexión - All In One Grow</title>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0F172A 0%, #1E293B 100%);
+            color: #E2E8F0;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            background: linear-gradient(135deg, #3B82F6 0%, #10B981 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .test-card {
+            background: rgba(30, 41, 59, 0.8);
+            border: 2px solid rgba(59, 130, 246, 0.3);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .test-title {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: #60A5FA;
+        }
+        
+        button {
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, #3B82F6 0%, #10B981 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-bottom: 1rem;
+        }
+        
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.4);
+        }
+        
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .result {
+            background: rgba(15, 23, 42, 0.6);
+            border-left: 4px solid #10B981;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            display: none;
+        }
+        
+        .result.show {
+            display: block;
+        }
+        
+        .result.error {
+            border-left-color: #EF4444;
+        }
+        
+        .result pre {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1rem;
+            border-radius: 8px;
+            overflow-x: auto;
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .status {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+        
+        .status.success {
+            background: rgba(16, 185, 129, 0.2);
+            color: #34D399;
+        }
+        
+        .status.error {
+            background: rgba(239, 68, 68, 0.2);
+            color: #EF4444;
+        }
+        
+        .status.loading {
+            background: rgba(59, 130, 246, 0.2);
+            color: #60A5FA;
+        }
+        
+        .info {
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        
+        .info h3 {
+            color: #60A5FA;
+            margin-bottom: 0.5rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧪 Test de Conexión con Google Sheets</h1>
+        
+        <div class="info">
+            <h3>Información de Usuario</h3>
+            <p><strong>User ID:</strong> <span id="userIdDisplay">Cargando...</span></p>
+            <p style="margin-top: 0.5rem; font-size: 0.9rem; color: #94A3B8;">
+                Este ID se guarda en tu navegador y se usa para todas las operaciones.
+            </p>
+        </div>
+        
+        <!-- Test 1: Obtener Frase del Día -->
+        <div class="test-card">
+            <h2 class="test-title">1️⃣ Obtener Frase del Día</h2>
+            <p style="margin-bottom: 1rem; color: #94A3B8;">
+                Prueba que podemos leer datos del Google Sheet (hoja Frases_Motivacionales)
+            </p>
+            <button onclick="testObtenerFrase()">Ejecutar Test 1</button>
+            <div class="result" id="result1"></div>
+        </div>
+        
+        <!-- Test 2: Guardar Meta de Prueba -->
+        <div class="test-card">
+            <h2 class="test-title">2️⃣ Guardar Meta de Prueba</h2>
+            <p style="margin-bottom: 1rem; color: #94A3B8;">
+                Prueba que podemos escribir datos al Google Sheet (hoja Metas_Anuales)
+            </p>
+            <button onclick="testGuardarMeta()">Ejecutar Test 2</button>
+            <div class="result" id="result2"></div>
+        </div>
+        
+        <!-- Test 3: Obtener Metas del Usuario -->
+        <div class="test-card">
+            <h2 class="test-title">3️⃣ Obtener Metas del Usuario</h2>
+            <p style="margin-bottom: 1rem; color: #94A3B8;">
+                Prueba que podemos leer las metas que acabamos de guardar
+            </p>
+            <button onclick="testObtenerMetas()">Ejecutar Test 3</button>
+            <div class="result" id="result3"></div>
+        </div>
+    </div>
+    
+    <script>
+        const API_URL = 'https://script.google.com/macros/s/AKfycbwuSntFBL1Fm0iySQs-yYqN9oIu7WWYeng2Qm3ZJMG6m4FJRF4jm3UpF2HASIoNriG35g/exec';
+        
+        // Obtener o crear User ID
+        let userId = localStorage.getItem('aio_userId');
+        if (!userId) {
+            userId = 'USER' + Date.now();
+            localStorage.setItem('aio_userId', userId);
+        }
+        
+        document.getElementById('userIdDisplay').textContent = userId;
+        
+        // Test 1: Obtener Frase del Día
+        async function testObtenerFrase() {
+            const resultDiv = document.getElementById('result1');
+            resultDiv.innerHTML = '<span class="status loading">⏳ Ejecutando...</span>';
+            resultDiv.classList.add('show');
+            
+            try {
+                const payload = {
+                    action: 'obtenerFraseDia'
+                };
+                
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'text/plain',
+                    },
+                    body: JSON.stringify(payload)
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    resultDiv.innerHTML = `
+                        <span class="status success">✅ ÉXITO</span>
+                        <h4 style="margin-top: 1rem; color: #34D399;">Frase del Día ${data.frase.dia}:</h4>
+                        <p style="font-style: italic; margin: 1rem 0; font-size: 1.1rem;">"${data.frase.texto}"</p>
+                        <p style="color: #60A5FA;">— ${data.frase.autor}</p>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    `;
+                } else {
+                    resultDiv.innerHTML = `
+                        <span class="status error">❌ ERROR</span>
+                        <p style="margin-top: 1rem;">${data.message}</p>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    `;
+                    resultDiv.classList.add('error');
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <span class="status error">❌ ERROR</span>
+                    <p style="margin-top: 1rem;">Error al conectar con la API</p>
+                    <pre>${error.toString()}</pre>
+                `;
+                resultDiv.classList.add('error');
+            }
+        }
+        
+        // Test 2: Guardar Meta de Prueba
+        async function testGuardarMeta() {
+            const resultDiv = document.getElementById('result2');
+            resultDiv.innerHTML = '<span class="status loading">⏳ Ejecutando...</span>';
+            resultDiv.classList.add('show');
+            
+            try {
+                const payload = {
+                    action: 'guardarMetasAnuales',
+                    userId: userId,
+                    metas: [
+                        {
+                            nombre: 'Meta de Prueba - Test de Conexión',
+                            categoria: 'personal',
+                            descripcion: 'Esta es una meta de prueba para verificar que la API funciona correctamente',
+                            metrica: 'API funcionando al 100%'
+                        }
+                    ]
+                };
+                
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'text/plain',
+                    },
+                    body: JSON.stringify(payload)
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    resultDiv.innerHTML = `
+                        <span class="status success">✅ ÉXITO</span>
+                        <p style="margin-top: 1rem;">Meta guardada correctamente en Google Sheets</p>
+                        <p style="margin-top: 0.5rem; color: #34D399;">IDs generados: ${data.metasIds.join(', ')}</p>
+                        <p style="margin-top: 1rem; font-size: 0.9rem; color: #94A3B8;">
+                            🔍 Revisa tu Google Sheet en la hoja "Metas_Anuales" para ver la nueva fila
+                        </p>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    `;
+                } else {
+                    resultDiv.innerHTML = `
+                        <span class="status error">❌ ERROR</span>
+                        <p style="margin-top: 1rem;">${data.message}</p>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    `;
+                    resultDiv.classList.add('error');
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <span class="status error">❌ ERROR</span>
+                    <p style="margin-top: 1rem;">Error al conectar con la API</p>
+                    <pre>${error.toString()}</pre>
+                `;
+                resultDiv.classList.add('error');
+            }
+        }
+        
+        // Test 3: Obtener Metas del Usuario
+        async function testObtenerMetas() {
+            const resultDiv = document.getElementById('result3');
+            resultDiv.innerHTML = '<span class="status loading">⏳ Ejecutando...</span>';
+            resultDiv.classList.add('show');
+            
+            try {
+                const payload = {
+                    action: 'obtenerMetasUsuario',
+                    userId: userId,
+                    año: new Date().getFullYear()
+                };
+                
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'text/plain',
+                    },
+                    body: JSON.stringify(payload)
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    if (data.metas.length > 0) {
+                        resultDiv.innerHTML = `
+                            <span class="status success">✅ ÉXITO</span>
+                            <p style="margin-top: 1rem;">Se encontraron ${data.metas.length} meta(s) para tu usuario</p>
+                            <div style="margin-top: 1rem;">
+                                ${data.metas.map((meta, i) => `
+                                    <div style="background: rgba(0,0,0,0.3); padding: 1rem; border-radius: 8px; margin-bottom: 0.5rem;">
+                                        <strong>${i + 1}. ${meta.nombre}</strong><br>
+                                        <span style="color: #94A3B8; font-size: 0.9rem;">
+                                            📁 ${meta.categoria} | ✅ ${meta.estado}
+                                        </span>
+                                    </div>
+                                `).join('')}
+                            </div>
+                            <pre>${JSON.stringify(data, null, 2)}</pre>
+                        `;
+                    } else {
+                        resultDiv.innerHTML = `
+                            <span class="status success">✅ ÉXITO</span>
+                            <p style="margin-top: 1rem;">No se encontraron metas para tu usuario todavía.</p>
+                            <p style="margin-top: 0.5rem; color: #94A3B8;">
+                                Ejecuta primero el Test 2 para crear una meta de prueba.
+                            </p>
+                            <pre>${JSON.stringify(data, null, 2)}</pre>
+                        `;
+                    }
+                } else {
+                    resultDiv.innerHTML = `
+                        <span class="status error">❌ ERROR</span>
+                        <p style="margin-top: 1rem;">${data.message}</p>
+                        <pre>${JSON.stringify(data, null, 2)}</pre>
+                    `;
+                    resultDiv.classList.add('error');
+                }
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <span class="status error">❌ ERROR</span>
+                    <p style="margin-top: 1rem;">Error al conectar con la API</p>
+                    <pre>${error.toString()}</pre>
+                `;
+                resultDiv.classList.add('error');
+            }
+        }
+    </script>
+</body>
+</html>

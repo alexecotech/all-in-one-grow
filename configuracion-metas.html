@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0F172A">
+    <title>Configura tus Metas - All In One Grow</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --color-dark: #0F172A;
+            --color-darker: #020617;
+            --color-primary: #3B82F6;
+            --color-primary-light: #60A5FA;
+            --color-accent: #10B981;
+            --color-accent-glow: #34D399;
+            --color-warning: #F59E0B;
+            --color-danger: #EF4444;
+            --color-text: #E2E8F0;
+            --color-text-dim: #94A3B8;
+            --font-display: 'Orbitron', sans-serif;
+            --font-body: 'Work Sans', sans-serif;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-body);
+            background: var(--color-darker);
+            color: var(--color-text);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+        
+        /* Animated Background */
+        .bg-animated {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(135deg, var(--color-darker) 0%, var(--color-dark) 50%, #1E293B 100%);
+        }
+        
+        .bg-animated::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 60%;
+            height: 60%;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, transparent 70%);
+            animation: float 20s ease-in-out infinite;
+            border-radius: 50%;
+        }
+        
+        .bg-animated::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 50%;
+            height: 50%;
+            background: radial-gradient(circle, rgba(16, 185, 129, 0.1) 0%, transparent 70%);
+            animation: float 15s ease-in-out infinite reverse;
+            border-radius: 50%;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(50px, 50px) scale(1.1); }
+        }
+        
+        /* Container */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 2rem 0;
+            animation: slideDown 0.8s ease-out;
+        }
+        
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .logo {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+            letter-spacing: 1px;
+        }
+        
+        /* Progress Bar */
+        .progress-container {
+            margin: 2rem 0;
+            animation: fadeIn 1s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: rgba(59, 130, 246, 0.2);
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 0.5rem;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+            border-radius: 10px;
+            transition: width 0.5s ease;
+            box-shadow: 0 0 10px var(--color-primary);
+        }
+        
+        .progress-text {
+            text-align: center;
+            color: var(--color-text-dim);
+            font-size: 0.9rem;
+        }
+        
+        /* Main Card */
+        .main-card {
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 24px;
+            padding: 3rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .section-title {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #FFFFFF 0%, var(--color-primary-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--color-text-dim);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+        
+        /* Inspiration Box */
+        .inspiration-box {
+            background: rgba(16, 185, 129, 0.1);
+            border-left: 4px solid var(--color-accent);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+        }
+        
+        .inspiration-title {
+            font-weight: 600;
+            color: var(--color-accent-glow);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+        
+        .inspiration-text {
+            color: var(--color-text);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        
+        /* Goal Counter */
+        .goal-counter {
+            text-align: center;
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: rgba(59, 130, 246, 0.1);
+            border-radius: 16px;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+        
+        .goal-number {
+            font-family: var(--font-display);
+            font-size: 3rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .goal-label {
+            color: var(--color-text-dim);
+            font-size: 1rem;
+            margin-top: 0.5rem;
+        }
+        
+        /* Goals List */
+        .goals-list {
+            margin: 2rem 0;
+        }
+        
+        .goal-item {
+            background: rgba(30, 41, 59, 0.8);
+            border: 2px solid rgba(59, 130, 246, 0.3);
+            border-radius: 16px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+            animation: slideIn 0.5s ease-out;
+        }
+        
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-20px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        
+        .goal-item:hover {
+            border-color: var(--color-primary);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.2);
+        }
+        
+        .goal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .goal-title-input {
+            font-family: var(--font-display);
+            font-size: 1.3rem;
+            color: var(--color-primary-light);
+            margin-bottom: 0.3rem;
+        }
+        
+        .delete-btn {
+            background: rgba(239, 68, 68, 0.2);
+            border: 1px solid var(--color-danger);
+            color: var(--color-danger);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+        
+        .delete-btn:hover {
+            background: var(--color-danger);
+            color: white;
+            transform: scale(1.05);
+        }
+        
+        /* Form Elements */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-label {
+            display: block;
+            color: var(--color-text);
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+        
+        .form-input,
+        .form-select,
+        .form-textarea {
+            width: 100%;
+            padding: 0.9rem 1.2rem;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 12px;
+            color: var(--color-text);
+            font-family: var(--font-body);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+            background: rgba(15, 23, 42, 0.8);
+        }
+        
+        .form-textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        .form-hint {
+            font-size: 0.85rem;
+            color: var(--color-text-dim);
+            margin-top: 0.3rem;
+            font-style: italic;
+        }
+        
+        /* Category Pills */
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 0.8rem;
+            margin-top: 0.8rem;
+        }
+        
+        .category-pill {
+            padding: 0.7rem 1rem;
+            background: rgba(59, 130, 246, 0.1);
+            border: 2px solid rgba(59, 130, 246, 0.3);
+            border-radius: 20px;
+            cursor: pointer;
+            text-align: center;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+        
+        .category-pill:hover {
+            background: rgba(59, 130, 246, 0.2);
+            transform: translateY(-2px);
+        }
+        
+        .category-pill.selected {
+            background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+            border-color: transparent;
+            color: white;
+            font-weight: 600;
+        }
+        
+        /* Add Goal Button */
+        .add-goal-btn {
+            width: 100%;
+            padding: 1.2rem;
+            background: rgba(16, 185, 129, 0.1);
+            border: 2px dashed var(--color-accent);
+            border-radius: 16px;
+            color: var(--color-accent-glow);
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        
+        .add-goal-btn:hover {
+            background: rgba(16, 185, 129, 0.2);
+            border-color: var(--color-accent-glow);
+            transform: translateY(-2px);
+        }
+        
+        /* Navigation Buttons */
+        .nav-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 3rem;
+        }
+        
+        .btn {
+            flex: 1;
+            padding: 1.2rem 2rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            font-family: var(--font-display);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        
+        .btn-secondary {
+            background: rgba(148, 163, 184, 0.2);
+            border: 2px solid var(--color-text-dim);
+            color: var(--color-text-dim);
+        }
+        
+        .btn-secondary:hover {
+            background: rgba(148, 163, 184, 0.3);
+            transform: translateY(-2px);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
+            color: white;
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.4);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(59, 130, 246, 0.6);
+        }
+        
+        .btn-primary:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .main-card {
+                padding: 1.5rem;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+            }
+            
+            .nav-buttons {
+                flex-direction: column;
+            }
+            
+            .category-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animated"></div>
+    
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1 class="logo">ALL IN ONE GROW</h1>
+        </header>
+        
+        <!-- Progress -->
+        <div class="progress-container">
+            <div class="progress-bar">
+                <div class="progress-fill" style="width: 33%"></div>
+            </div>
+            <p class="progress-text">Paso 1 de 3: Define tus Metas Anuales</p>
+        </div>
+        
+        <!-- Main Card -->
+        <div class="main-card">
+            <h2 class="section-title">¿Qué quieres lograr este año?</h2>
+            <p class="section-subtitle">
+                Este es el momento más importante. Define tus metas anuales con claridad. 
+                Recuerda: es mejor tener 3-5 metas claras que 20 metas confusas.
+            </p>
+            
+            <!-- Inspiration Box -->
+            <div class="inspiration-box">
+                <h3 class="inspiration-title">💡 Consejo de Alex (Creador de All In One Grow)</h3>
+                <p class="inspiration-text">
+                    "Cuando nació mi hijo, me di cuenta de que no podía seguir posponiendo mis sueños. 
+                    Piensa en esto: si hoy fuera el último día del año, ¿qué logros te harían sentir orgulloso? 
+                    Escribe esas metas. Hazlas específicas. Hazlas TUYAS."
+                </p>
+            </div>
+            
+            <!-- Goal Counter -->
+            <div class="goal-counter">
+                <div class="goal-number" id="goalCount">0</div>
+                <p class="goal-label">Metas Definidas (Recomendado: 3-5)</p>
+            </div>
+            
+            <!-- Goals List -->
+            <div class="goals-list" id="goalsList">
+                <!-- Goals will be added here dynamically -->
+            </div>
+            
+            <!-- Add Goal Button -->
+            <button class="add-goal-btn" onclick="addGoal()">
+                <span style="font-size: 1.5rem;">+</span>
+                <span>Agregar Nueva Meta</span>
+            </button>
+            
+            <!-- Navigation -->
+            <div class="nav-buttons">
+                <button class="btn btn-secondary" onclick="goBack()">
+                    ← Volver
+                </button>
+                <button class="btn btn-primary" id="nextBtn" onclick="saveAndContinue()" disabled>
+                    Continuar al Siguiente Paso →
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // ============================================
+        // CONFIGURACIÓN DE API
+        // ============================================
+        const API_URL = 'https://script.google.com/macros/s/AKfycbwuSntFBL1Fm0iySQs-yYqN9oIu7WWYeng2Qm3ZJMG6m4FJRF4jm3UpF2HASIoNriG35g/exec';
+        
+        // Obtener o crear ID de usuario (guardado en localStorage)
+        let userId = localStorage.getItem('aio_userId');
+        if (!userId) {
+            userId = 'USER' + Date.now();
+            localStorage.setItem('aio_userId', userId);
+        }
+        
+        // Categories
+        const CATEGORIES = [
+            { id: 'educacion', name: 'Educación', emoji: '📚' },
+            { id: 'salud', name: 'Salud & Fitness', emoji: '💪' },
+            { id: 'finanzas', name: 'Finanzas', emoji: '💰' },
+            { id: 'carrera', name: 'Carrera', emoji: '🚀' },
+            { id: 'familia', name: 'Familia', emoji: '👨‍👩‍👧' },
+            { id: 'personal', name: 'Desarrollo Personal', emoji: '🌱' },
+            { id: 'hobby', name: 'Hobbies', emoji: '🎨' },
+            { id: 'otro', name: 'Otro', emoji: '⭐' }
+        ];
+        
+        // Goals array
+        let goals = [];
+        let goalIdCounter = 1;
+        
+        // Initialize with one empty goal
+        window.addEventListener('DOMContentLoaded', () => {
+            addGoal();
+        });
+        
+        // Add new goal
+        function addGoal() {
+            const goalId = goalIdCounter++;
+            const goal = {
+                id: goalId,
+                nombre: '',
+                categoria: '',
+                descripcion: '',
+                metrica: ''
+            };
+            
+            goals.push(goal);
+            renderGoal(goal);
+            updateGoalCount();
+            updateNextButton();
+        }
+        
+        // Render a goal card
+        function renderGoal(goal) {
+            const goalsList = document.getElementById('goalsList');
+            
+            const goalDiv = document.createElement('div');
+            goalDiv.className = 'goal-item';
+            goalDiv.id = `goal-${goal.id}`;
+            
+            goalDiv.innerHTML = `
+                <div class="goal-header">
+                    <div class="goal-title-input">Meta #${goal.id}</div>
+                    <button class="delete-btn" onclick="deleteGoal(${goal.id})">🗑️ Eliminar</button>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">¿Cuál es tu meta?</label>
+                    <input 
+                        type="text" 
+                        class="form-input" 
+                        placeholder="Ejemplo: Aprender inglés fluido, Perder 10 kg, Crear mi primer producto digital..."
+                        onchange="updateGoalField(${goal.id}, 'nombre', this.value)"
+                    >
+                    <p class="form-hint">Sé específico. Entre más clara, mejor.</p>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Categoría</label>
+                    <div class="category-grid" id="categories-${goal.id}">
+                        ${CATEGORIES.map(cat => `
+                            <div class="category-pill" onclick="selectCategory(${goal.id}, '${cat.id}')">
+                                ${cat.emoji} ${cat.name}
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">Descripción (Opcional)</label>
+                    <textarea 
+                        class="form-textarea" 
+                        placeholder="¿Por qué es importante esta meta para ti? ¿Qué significará lograrla?"
+                        onchange="updateGoalField(${goal.id}, 'descripcion', this.value)"
+                    ></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">¿Cómo medirás el éxito?</label>
+                    <input 
+                        type="text" 
+                        class="form-input" 
+                        placeholder="Ejemplo: Tener conversaciones de 30 min en inglés, Pesar 75 kg, Ganar $500/mes..."
+                        onchange="updateGoalField(${goal.id}, 'metrica', this.value)"
+                    >
+                    <p class="form-hint">Define cómo sabrás que lograste tu meta.</p>
+                </div>
+            `;
+            
+            goalsList.appendChild(goalDiv);
+        }
+        
+        // Update goal field
+        function updateGoalField(goalId, field, value) {
+            const goal = goals.find(g => g.id === goalId);
+            if (goal) {
+                goal[field] = value;
+                updateNextButton();
+            }
+        }
+        
+        // Select category
+        function selectCategory(goalId, categoryId) {
+            const goal = goals.find(g => g.id === goalId);
+            if (goal) {
+                goal.categoria = categoryId;
+                
+                // Update UI
+                const container = document.getElementById(`categories-${goalId}`);
+                const pills = container.querySelectorAll('.category-pill');
+                pills.forEach((pill, index) => {
+                    if (CATEGORIES[index].id === categoryId) {
+                        pill.classList.add('selected');
+                    } else {
+                        pill.classList.remove('selected');
+                    }
+                });
+                
+                updateNextButton();
+            }
+        }
+        
+        // Delete goal
+        function deleteGoal(goalId) {
+            if (goals.length === 1) {
+                alert('Necesitas al menos una meta para continuar.');
+                return;
+            }
+            
+            if (confirm('¿Estás seguro de eliminar esta meta?')) {
+                goals = goals.filter(g => g.id !== goalId);
+                document.getElementById(`goal-${goalId}`).remove();
+                updateGoalCount();
+                updateNextButton();
+            }
+        }
+        
+        // Update goal count
+        function updateGoalCount() {
+            document.getElementById('goalCount').textContent = goals.length;
+        }
+        
+        // Update next button state
+        function updateNextButton() {
+            const nextBtn = document.getElementById('nextBtn');
+            const allValid = goals.every(goal => 
+                goal.nombre.trim() !== '' && 
+                goal.categoria !== '' &&
+                goal.metrica.trim() !== ''
+            );
+            
+            nextBtn.disabled = !allValid;
+        }
+        
+        // Save and continue
+        async function saveAndContinue() {
+            const nextBtn = document.getElementById('nextBtn');
+            nextBtn.disabled = true;
+            nextBtn.textContent = 'Guardando...';
+            
+            try {
+                // Preparar datos para enviar
+                const payload = {
+                    action: 'guardarMetasAnuales',
+                    userId: userId,
+                    metas: goals.map(g => ({
+                        nombre: g.nombre,
+                        categoria: g.categoria,
+                        descripcion: g.descripcion,
+                        metrica: g.metrica
+                    }))
+                };
+                
+                // Enviar a Google Sheets
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    mode: 'no-cors', // Importante para Apps Script
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(payload)
+                });
+                
+                // Guardar en localStorage también
+                localStorage.setItem('aio_metas', JSON.stringify(goals));
+                localStorage.setItem('aio_metasGuardadas', 'true');
+                
+                // Mostrar éxito
+                alert(`🎉 ¡ÉXITO! 
+
+Has definido ${goals.length} meta(s) para este año.
+
+✅ Guardado en Google Sheets
+✅ Listo para el siguiente paso
+
+Próximamente: Vamos a desglosarlas en objetivos mensuales.`);
+                
+                console.log('Metas guardadas:', goals);
+                console.log('User ID:', userId);
+                
+                // TODO: Navegar a la siguiente pantalla
+                // window.location.href = 'desglose-mensual.html';
+                
+            } catch (error) {
+                console.error('Error al guardar:', error);
+                
+                // Aún así guardar localmente
+                localStorage.setItem('aio_metas', JSON.stringify(goals));
+                
+                alert(`✅ Metas guardadas localmente
+
+Nota: Hubo un problema con la sincronización a Google Sheets, pero tus metas están seguras en tu navegador.
+
+Puedes continuar al siguiente paso.`);
+            } finally {
+                nextBtn.disabled = false;
+                nextBtn.textContent = 'Continuar al Siguiente Paso →';
+            }
+        }
+        
+        // Go back
+        function goBack() {
+            if (confirm('¿Seguro que quieres volver? Se perderán los cambios.')) {
+                window.history.back();
+            }
+        }
+    </script>
+</body>
+</html>

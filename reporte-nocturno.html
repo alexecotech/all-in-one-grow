@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0F172A">
+    <title>Reporte del Día - All In One Grow</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --color-dark: #0F172A;
+            --color-darker: #020617;
+            --color-primary: #3B82F6;
+            --color-primary-light: #60A5FA;
+            --color-accent: #10B981;
+            --color-accent-glow: #34D399;
+            --color-warning: #F59E0B;
+            --color-text: #E2E8F0;
+            --color-text-dim: #94A3B8;
+            --font-display: 'Orbitron', sans-serif;
+            --font-body: 'Work Sans', sans-serif;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-body);
+            background: var(--color-darker);
+            color: var(--color-text);
+            min-height: 100vh;
+        }
+        
+        /* Animated Background */
+        .bg-animated {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(135deg, var(--color-darker) 0%, var(--color-dark) 50%, #1E293B 100%);
+        }
+        
+        .bg-animated::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 60%;
+            height: 60%;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, transparent 70%);
+            animation: float 20s ease-in-out infinite;
+            border-radius: 50%;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(50px, 50px) scale(1.1); }
+        }
+        
+        /* Container */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 2rem 0;
+            animation: slideDown 0.8s ease-out;
+        }
+        
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .logo {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+        
+        .header-time {
+            color: var(--color-text-dim);
+            font-size: 1rem;
+        }
+        
+        /* Main Card */
+        .main-card {
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 24px;
+            padding: 3rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .section-title {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #FFFFFF 0%, var(--color-primary-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-align: center;
+        }
+        
+        .section-subtitle {
+            text-align: center;
+            color: var(--color-text-dim);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+        
+        /* Greeting Section */
+        .greeting-section {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(16, 185, 129, 0.1);
+            border-radius: 16px;
+            margin-bottom: 2rem;
+        }
+        
+        .greeting-emoji {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+        
+        .greeting-text {
+            font-size: 1.3rem;
+            color: var(--color-text);
+            margin-bottom: 0.5rem;
+        }
+        
+        .greeting-name {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            color: var(--color-accent-glow);
+        }
+        
+        /* Goals Checklist */
+        .goals-checklist {
+            margin: 2rem 0;
+        }
+        
+        .checklist-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--color-primary-light);
+            margin-bottom: 1rem;
+        }
+        
+        .goal-check-item {
+            background: rgba(30, 41, 59, 0.8);
+            border: 2px solid rgba(59, 130, 246, 0.3);
+            border-radius: 12px;
+            padding: 1.2rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .goal-check-item:hover {
+            border-color: var(--color-primary);
+            transform: translateX(5px);
+        }
+        
+        .goal-check-item.checked {
+            border-color: var(--color-accent);
+            background: rgba(16, 185, 129, 0.1);
+        }
+        
+        /* Checkbox */
+        .custom-checkbox {
+            width: 24px;
+            height: 24px;
+            border: 2px solid var(--color-text-dim);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+        
+        .goal-check-item.checked .custom-checkbox {
+            background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+            border-color: var(--color-accent);
+        }
+        
+        .custom-checkbox::after {
+            content: '✓';
+            color: white;
+            font-weight: bold;
+            font-size: 1.2rem;
+            display: none;
+        }
+        
+        .goal-check-item.checked .custom-checkbox::after {
+            display: block;
+        }
+        
+        .goal-check-label {
+            flex: 1;
+            color: var(--color-text);
+            font-size: 1rem;
+        }
+        
+        .goal-check-item.checked .goal-check-label {
+            color: var(--color-accent-glow);
+        }
+        
+        /* Reflection Section */
+        .reflection-section {
+            margin: 2rem 0;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-label {
+            display: block;
+            color: var(--color-text);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+        
+        .form-textarea {
+            width: 100%;
+            padding: 1rem 1.2rem;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 12px;
+            color: var(--color-text);
+            font-family: var(--font-body);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            resize: vertical;
+            min-height: 120px;
+        }
+        
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+            background: rgba(15, 23, 42, 0.8);
+        }
+        
+        .form-hint {
+            font-size: 0.85rem;
+            color: var(--color-text-dim);
+            margin-top: 0.3rem;
+            font-style: italic;
+        }
+        
+        /* Rating */
+        .rating-group {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 1.5rem 0;
+        }
+        
+        .rating-emoji {
+            font-size: 3rem;
+            cursor: pointer;
+            opacity: 0.3;
+            transition: all 0.3s ease;
+            padding: 0.5rem;
+            border-radius: 12px;
+        }
+        
+        .rating-emoji:hover {
+            opacity: 0.7;
+            transform: scale(1.1);
+        }
+        
+        .rating-emoji.selected {
+            opacity: 1;
+            background: rgba(59, 130, 246, 0.2);
+            transform: scale(1.2);
+        }
+        
+        /* Submit Button */
+        .submit-btn {
+            width: 100%;
+            padding: 1.2rem 2rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+            font-family: var(--font-display);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.4);
+            margin-top: 2rem;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(59, 130, 246, 0.6);
+        }
+        
+        .submit-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        /* Stats Summary */
+        .stats-summary {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .stat-box {
+            text-align: center;
+            padding: 1rem;
+            background: rgba(59, 130, 246, 0.1);
+            border-radius: 12px;
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 900;
+            font-family: var(--font-display);
+            color: var(--color-accent-glow);
+        }
+        
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--color-text-dim);
+            margin-top: 0.3rem;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .main-card {
+                padding: 1.5rem;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+            }
+            
+            .stats-summary {
+                grid-template-columns: 1fr;
+            }
+            
+            .rating-emoji {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animated"></div>
+    
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1 class="logo">ALL IN ONE GROW</h1>
+            <p class="header-time" id="currentTime">Cargando...</p>
+        </header>
+        
+        <!-- Main Card -->
+        <div class="main-card">
+            <!-- Greeting -->
+            <div class="greeting-section">
+                <div class="greeting-emoji">🌙</div>
+                <p class="greeting-text">El día está terminando,</p>
+                <p class="greeting-name" id="userName">Usuario</p>
+            </div>
+            
+            <h2 class="section-title">¿Cómo te fue hoy?</h2>
+            <p class="section-subtitle">
+                Tómate un momento para reflexionar sobre tu día y registrar tu progreso.
+            </p>
+            
+            <!-- Stats Summary -->
+            <div class="stats-summary">
+                <div class="stat-box">
+                    <div class="stat-number" id="totalGoals">0</div>
+                    <div class="stat-label">Objetivos</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number" id="completedGoals">0</div>
+                    <div class="stat-label">Completados</div>
+                </div>
+                <div class="stat-box">
+                    <div class="stat-number" id="percentageGoals">0%</div>
+                    <div class="stat-label">Progreso</div>
+                </div>
+            </div>
+            
+            <!-- Goals Checklist -->
+            <div class="goals-checklist">
+                <h3 class="checklist-title">✅ Marca lo que lograste hoy:</h3>
+                <div id="goalsChecklistContainer">
+                    <!-- Example goals (will be dynamic) -->
+                    <div class="goal-check-item" onclick="toggleGoal(0)">
+                        <div class="custom-checkbox"></div>
+                        <div class="goal-check-label">Ejemplo: Estudiar inglés 30 minutos</div>
+                    </div>
+                    <div class="goal-check-item" onclick="toggleGoal(1)">
+                        <div class="custom-checkbox"></div>
+                        <div class="goal-check-label">Ejemplo: Hacer ejercicio</div>
+                    </div>
+                    <div class="goal-check-item" onclick="toggleGoal(2)">
+                        <div class="custom-checkbox"></div>
+                        <div class="goal-check-label">Ejemplo: Leer 20 páginas</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Reflection -->
+            <div class="reflection-section">
+                <div class="form-group">
+                    <label class="form-label">¿Qué lograste hoy?</label>
+                    <textarea 
+                        class="form-textarea" 
+                        id="achievements"
+                        placeholder="Escribe lo que lograste, por pequeño que parezca. Cada paso cuenta..."
+                    ></textarea>
+                    <p class="form-hint">Sé específico. Esto te ayudará a ver tu progreso con el tiempo.</p>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">¿Qué aprendiste?</label>
+                    <textarea 
+                        class="form-textarea" 
+                        id="learnings"
+                        placeholder="¿Qué descubriste sobre ti mismo? ¿Qué funcionó? ¿Qué no?"
+                    ></textarea>
+                    <p class="form-hint">La reflexión convierte la experiencia en aprendizaje.</p>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">¿Cómo calificas tu día?</label>
+                    <div class="rating-group" id="ratingGroup">
+                        <div class="rating-emoji" data-rating="1" onclick="selectRating(1)">😔</div>
+                        <div class="rating-emoji" data-rating="2" onclick="selectRating(2)">😐</div>
+                        <div class="rating-emoji" data-rating="3" onclick="selectRating(3)">😊</div>
+                        <div class="rating-emoji" data-rating="4" onclick="selectRating(4)">😄</div>
+                        <div class="rating-emoji" data-rating="5" onclick="selectRating(5)">🤩</div>
+                    </div>
+                    <p class="form-hint" style="text-align: center; margin-top: 1rem;">
+                        1 = Día difícil | 5 = Día increíble
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Submit -->
+            <button class="submit-btn" onclick="submitReport()">
+                Guardar mi Reporte del Día
+            </button>
+        </div>
+    </div>
+    
+    <script>
+        const API_URL = 'https://script.google.com/macros/s/AKfycbwuSntFBL1Fm0iySQs-yYqN9oIu7WWYeng2Qm3ZJMG6m4FJRF4jm3UpF2HASIoNriG35g/exec';
+        
+        // User data
+        const userId = localStorage.getItem('aio_userId');
+        const userName = localStorage.getItem('aio_userName') || 'Usuario';
+        const firstName = userName.split(' ')[0];
+        
+        // Goals state
+        let goalsChecked = [false, false, false]; // Example
+        let selectedRating = 0;
+        
+        // Initialize
+        window.addEventListener('DOMContentLoaded', () => {
+            setCurrentTime();
+            document.getElementById('userName').textContent = firstName;
+            loadTodaysGoals();
+        });
+        
+        // Set current time
+        function setCurrentTime() {
+            const now = new Date();
+            const options = { 
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            };
+            document.getElementById('currentTime').textContent = now.toLocaleDateString('es-ES', options);
+        }
+        
+        // Load today's goals (placeholder)
+        function loadTodaysGoals() {
+            // TODO: Load real goals from localStorage or API
+            updateStats();
+        }
+        
+        // Toggle goal
+        function toggleGoal(index) {
+            const items = document.querySelectorAll('.goal-check-item');
+            goalsChecked[index] = !goalsChecked[index];
+            
+            if (goalsChecked[index]) {
+                items[index].classList.add('checked');
+            } else {
+                items[index].classList.remove('checked');
+            }
+            
+            updateStats();
+        }
+        
+        // Update stats
+        function updateStats() {
+            const total = goalsChecked.length;
+            const completed = goalsChecked.filter(g => g).length;
+            const percentage = total > 0 ? Math.round((completed / total) * 100) : 0;
+            
+            document.getElementById('totalGoals').textContent = total;
+            document.getElementById('completedGoals').textContent = completed;
+            document.getElementById('percentageGoals').textContent = percentage + '%';
+        }
+        
+        // Select rating
+        function selectRating(rating) {
+            selectedRating = rating;
+            
+            const emojis = document.querySelectorAll('.rating-emoji');
+            emojis.forEach(emoji => {
+                emoji.classList.remove('selected');
+            });
+            
+            emojis[rating - 1].classList.add('selected');
+        }
+        
+        // Submit report
+        async function submitReport() {
+            const achievements = document.getElementById('achievements').value.trim();
+            const learnings = document.getElementById('learnings').value.trim();
+            
+            if (!achievements) {
+                alert('Por favor, escribe al menos qué lograste hoy.');
+                return;
+            }
+            
+            if (selectedRating === 0) {
+                alert('Por favor, califica tu día.');
+                return;
+            }
+            
+            const submitBtn = document.querySelector('.submit-btn');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Guardando...';
+            
+            try {
+                const reportData = {
+                    action: 'guardarProgresoDiario',
+                    userId: userId,
+                    fecha: new Date().toISOString().split('T')[0],
+                    objetivosCompletados: goalsChecked.filter(g => g).length,
+                    objetivosTotales: goalsChecked.length,
+                    queHiciste: achievements,
+                    aprendizajes: learnings,
+                    calificacionDia: selectedRating,
+                    completado: goalsChecked.some(g => g)
+                };
+                
+                // Guardar en localStorage
+                const reports = JSON.parse(localStorage.getItem('aio_reports') || '[]');
+                reports.push(reportData);
+                localStorage.setItem('aio_reports', JSON.stringify(reports));
+                
+                // TODO: Enviar a Google Sheets
+                // await fetch(API_URL, { ... });
+                
+                // Success message
+                const messages = [
+                    '¡Excelente trabajo hoy!',
+                    '¡Bien hecho! Cada día cuenta.',
+                    '¡Sigue así! El progreso es constante.',
+                    '¡Genial! Otro día más cerca de tus metas.',
+                    '¡Increíble! Tu esfuerzo vale la pena.'
+                ];
+                
+                const randomMessage = messages[Math.floor(Math.random() * messages.length)];
+                
+                alert(`✅ ${randomMessage}
+
+📊 Tu progreso de hoy:
+${goalsChecked.filter(g => g).length} de ${goalsChecked.length} objetivos completados
+
+Descansa bien. Mañana será un gran día.`);
+                
+                // Redirect to dashboard
+                window.location.href = 'dashboard.html';
+                
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Hubo un error al guardar. Intenta nuevamente.');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Guardar mi Reporte del Día';
+            }
+        }
+    </script>
+</body>
+</html>

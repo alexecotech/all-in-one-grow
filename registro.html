@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0F172A">
+    <title>Registro - All In One Grow</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@700;900&family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --color-dark: #0F172A;
+            --color-darker: #020617;
+            --color-primary: #3B82F6;
+            --color-primary-light: #60A5FA;
+            --color-accent: #10B981;
+            --color-accent-glow: #34D399;
+            --color-text: #E2E8F0;
+            --color-text-dim: #94A3B8;
+            --font-display: 'Orbitron', sans-serif;
+            --font-body: 'Work Sans', sans-serif;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-body);
+            background: var(--color-darker);
+            color: var(--color-text);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+        
+        /* Animated Background */
+        .bg-animated {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(135deg, var(--color-darker) 0%, var(--color-dark) 50%, #1E293B 100%);
+        }
+        
+        .bg-animated::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 60%;
+            height: 60%;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.15) 0%, transparent 70%);
+            animation: float 20s ease-in-out infinite;
+            border-radius: 50%;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(50px, 50px) scale(1.1); }
+        }
+        
+        /* Container */
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            padding: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 2rem 0;
+            animation: slideDown 0.8s ease-out;
+        }
+        
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .logo {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            letter-spacing: 1px;
+        }
+        
+        .header-subtitle {
+            color: var(--color-text-dim);
+            font-size: 1.1rem;
+        }
+        
+        /* Main Card */
+        .main-card {
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 24px;
+            padding: 3rem;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
+            animation: fadeInUp 1s ease-out;
+            margin-top: 2rem;
+        }
+        
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .section-title {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, #FFFFFF 0%, var(--color-primary-light) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .section-subtitle {
+            color: var(--color-text-dim);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+        
+        /* Form */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-label {
+            display: block;
+            color: var(--color-text);
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+        
+        .required {
+            color: var(--color-accent);
+        }
+        
+        .form-input,
+        .form-select {
+            width: 100%;
+            padding: 1rem 1.2rem;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 12px;
+            color: var(--color-text);
+            font-family: var(--font-body);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-input:focus,
+        .form-select:focus {
+            outline: none;
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+            background: rgba(15, 23, 42, 0.8);
+        }
+        
+        .form-hint {
+            font-size: 0.85rem;
+            color: var(--color-text-dim);
+            margin-top: 0.3rem;
+            font-style: italic;
+        }
+        
+        /* Notifications Section */
+        .notifications-section {
+            background: rgba(59, 130, 246, 0.05);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .notifications-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--color-primary-light);
+            margin-bottom: 1rem;
+        }
+        
+        .notification-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem;
+            background: rgba(15, 23, 42, 0.4);
+            border-radius: 12px;
+            margin-bottom: 0.8rem;
+            transition: all 0.3s ease;
+        }
+        
+        .notification-item:hover {
+            background: rgba(15, 23, 42, 0.6);
+        }
+        
+        .notification-info {
+            flex: 1;
+        }
+        
+        .notification-time {
+            font-weight: 600;
+            color: var(--color-accent-glow);
+            margin-bottom: 0.2rem;
+        }
+        
+        .notification-desc {
+            font-size: 0.9rem;
+            color: var(--color-text-dim);
+        }
+        
+        /* Toggle Switch */
+        .toggle-switch {
+            position: relative;
+            width: 60px;
+            height: 30px;
+            margin-left: 1rem;
+        }
+        
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(148, 163, 184, 0.3);
+            transition: 0.4s;
+            border-radius: 30px;
+        }
+        
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 22px;
+            width: 22px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: 0.4s;
+            border-radius: 50%;
+        }
+        
+        input:checked + .toggle-slider {
+            background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
+        }
+        
+        input:checked + .toggle-slider:before {
+            transform: translateX(30px);
+        }
+        
+        /* Time Input */
+        .time-input-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .time-input-wrapper {
+            text-align: center;
+        }
+        
+        .time-label {
+            font-size: 0.85rem;
+            color: var(--color-text-dim);
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+        
+        .time-input {
+            width: 100%;
+            padding: 0.8rem;
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 8px;
+            color: var(--color-text);
+            font-size: 1rem;
+            text-align: center;
+        }
+        
+        /* Submit Button */
+        .submit-btn {
+            width: 100%;
+            padding: 1.2rem 2rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+            font-family: var(--font-display);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.4);
+            margin-top: 2rem;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(59, 130, 246, 0.6);
+        }
+        
+        .submit-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        /* Welcome Message */
+        .welcome-box {
+            background: rgba(16, 185, 129, 0.1);
+            border-left: 4px solid var(--color-accent);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+        }
+        
+        .welcome-text {
+            color: var(--color-text);
+            line-height: 1.6;
+        }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+            
+            .main-card {
+                padding: 1.5rem;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+            }
+            
+            .time-input-group {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animated"></div>
+    
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1 class="logo">ALL IN ONE GROW</h1>
+            <p class="header-subtitle">Comencemos tu viaje de transformación</p>
+        </header>
+        
+        <!-- Main Card -->
+        <div class="main-card">
+            <h2 class="section-title">¡Bienvenido!</h2>
+            <p class="section-subtitle">
+                Necesitamos conocerte un poco para personalizar tu experiencia.
+            </p>
+            
+            <!-- Welcome Message -->
+            <div class="welcome-box">
+                <p class="welcome-text">
+                    <strong>Solo tomará 2 minutos.</strong> Esta información nos permite enviarte recordatorios 
+                    en los momentos perfectos del día y hacer que All In One Grow se adapte a tu rutina.
+                </p>
+            </div>
+            
+            <!-- Registration Form -->
+            <form id="registrationForm" onsubmit="handleSubmit(event)">
+                <!-- Nombre Completo -->
+                <div class="form-group">
+                    <label class="form-label">
+                        Nombre Completo <span class="required">*</span>
+                    </label>
+                    <input 
+                        type="text" 
+                        class="form-input" 
+                        id="nombreCompleto"
+                        placeholder="Ejemplo: Alejandro García"
+                        required
+                    >
+                    <p class="form-hint">¿Cómo te gustaría que te llamemos?</p>
+                </div>
+                
+                <!-- Email -->
+                <div class="form-group">
+                    <label class="form-label">
+                        Email <span class="required">*</span>
+                    </label>
+                    <input 
+                        type="email" 
+                        class="form-input" 
+                        id="email"
+                        placeholder="tu@email.com"
+                        required
+                    >
+                    <p class="form-hint">Para futuras notificaciones y recuperación de cuenta</p>
+                </div>
+                
+                <!-- Zona Horaria -->
+                <div class="form-group">
+                    <label class="form-label">
+                        Zona Horaria <span class="required">*</span>
+                    </label>
+                    <select class="form-select" id="zonaHoraria" required>
+                        <option value="">Selecciona tu zona horaria</option>
+                        <option value="America/Guayaquil">Ecuador (GMT-5)</option>
+                        <option value="America/Bogota">Colombia (GMT-5)</option>
+                        <option value="America/Lima">Perú (GMT-5)</option>
+                        <option value="America/Mexico_City">México Central (GMT-6)</option>
+                        <option value="America/New_York">New York (GMT-5)</option>
+                        <option value="America/Los_Angeles">Los Angeles (GMT-8)</option>
+                        <option value="America/Argentina/Buenos_Aires">Argentina (GMT-3)</option>
+                        <option value="America/Santiago">Chile (GMT-3)</option>
+                        <option value="Europe/Madrid">España (GMT+1)</option>
+                    </select>
+                    <p class="form-hint">Importante para enviarte notificaciones en el horario correcto</p>
+                </div>
+                
+                <!-- Notifications Section -->
+                <div class="notifications-section">
+                    <h3 class="notifications-title">🔔 Configuración de Recordatorios</h3>
+                    <p style="color: var(--color-text-dim); margin-bottom: 1.5rem; font-size: 0.95rem;">
+                        Te recomendamos 7 recordatorios al día (cada 3 horas). Puedes activar/desactivar cada uno.
+                    </p>
+                    
+                    <!-- Notification Items -->
+                    <div class="notification-item">
+                        <div class="notification-info">
+                            <div class="notification-time">☀️ 5:00 AM</div>
+                            <div class="notification-desc">Buenos días + Frase motivacional</div>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="notif1" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    
+                    <div class="notification-item">
+                        <div class="notification-info">
+                            <div class="notification-time">🌅  8:00 AM</div>
+                            <div class="notification-desc">Recordatorio de objetivos matutinos</div>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="notif2" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    
+                    <div class="notification-item">
+                        <div class="notification-info">
+                            <div class="notification-time">☕ 11:00 AM</div>
+                            <div class="notification-desc">Check-in medio día</div>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="notif3" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    
+                    <div class="notification-item">
+                        <div class="notification-info">
+                            <div class="notification-time">🌤️ 2:00 PM</div>
+                            <div class="notification-desc">Recordatorio post-almuerzo</div>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="notif4" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    
+                    <div class="notification-item">
+                        <div class="notification-info">
+                            <div class="notification-time">🌆 5:00 PM</div>
+                            <div class="notification-desc">Empuje final del día</div>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="notif5" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    
+                    <div class="notification-item">
+                        <div class="notification-info">
+                            <div class="notification-time">🌃 8:00 PM</div>
+                            <div class="notification-desc">Preparación para cierre</div>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="notif6" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    
+                    <div class="notification-item">
+                        <div class="notification-info">
+                            <div class="notification-time">🌙 9:00 PM</div>
+                            <div class="notification-desc">Reporte diario (¿Cumpliste tus objetivos?)</div>
+                        </div>
+                        <label class="toggle-switch">
+                            <input type="checkbox" id="notif7" checked>
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    
+                    <p style="margin-top: 1rem; font-size: 0.85rem; color: var(--color-text-dim); text-align: center;">
+                        💡 Tip: La constancia es clave. Recomendamos dejar todos activados al inicio.
+                    </p>
+                </div>
+                
+                <!-- Submit Button -->
+                <button type="submit" class="submit-btn" id="submitBtn">
+                    Comenzar Mi Viaje →
+                </button>
+            </form>
+        </div>
+    </div>
+    
+    <script>
+        const API_URL = 'https://script.google.com/macros/s/AKfycbwuSntFBL1Fm0iySQs-yYqN9oIu7WWYeng2Qm3ZJMG6m4FJRF4jm3UpF2HASIoNriG35g/exec';
+        
+        async function handleSubmit(event) {
+            event.preventDefault();
+            
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Registrando...';
+            
+            try {
+                // Recopilar datos del formulario
+                const formData = {
+                    action: 'registrarUsuario',
+                    nombreCompleto: document.getElementById('nombreCompleto').value.trim(),
+                    email: document.getElementById('email').value.trim(),
+                    zonaHoraria: document.getElementById('zonaHoraria').value,
+                    notificaciones: {
+                        notif_5am: document.getElementById('notif1').checked,
+                        notif_8am: document.getElementById('notif2').checked,
+                        notif_11am: document.getElementById('notif3').checked,
+                        notif_2pm: document.getElementById('notif4').checked,
+                        notif_5pm: document.getElementById('notif5').checked,
+                        notif_8pm: document.getElementById('notif6').checked,
+                        notif_9pm: document.getElementById('notif7').checked
+                    }
+                };
+                
+                // Enviar a Google Sheets
+                const response = await fetch(API_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'text/plain',
+                    },
+                    body: JSON.stringify(formData)
+                });
+                
+                const data = await response.json();
+                
+                if (data.success) {
+                    // Guardar User ID
+                    localStorage.setItem('aio_userId', data.userId);
+                    localStorage.setItem('aio_userName', formData.nombreCompleto);
+                    localStorage.setItem('aio_userEmail', formData.email);
+                    localStorage.setItem('aio_registered', 'true');
+                    
+                    // Mensaje de éxito
+                    alert(`🎉 ¡Bienvenido, ${formData.nombreCompleto.split(' ')[0]}!
+
+✅ Registro completado
+✅ ID de usuario: ${data.userId}
+✅ Notificaciones configuradas
+
+Siguiente paso: Define tus metas anuales.`);
+                    
+                    // Redirigir a configuración de metas
+                    window.location.href = 'configuracion-metas.html';
+                    
+                } else {
+                    throw new Error(data.message || 'Error al registrar');
+                }
+                
+            } catch (error) {
+                console.error('Error:', error);
+                
+                // Guardar localmente como respaldo
+                const tempUserId = 'USER' + Date.now();
+                localStorage.setItem('aio_userId', tempUserId);
+                localStorage.setItem('aio_userName', document.getElementById('nombreCompleto').value);
+                localStorage.setItem('aio_registered', 'true');
+                
+                alert(`⚠️ Registro guardado localmente
+
+Hubo un problema con la sincronización, pero tus datos están seguros.
+Puedes continuar configurando tus metas.`);
+                
+                // Aún así continuar
+                window.location.href = 'configuracion-metas.html';
+                
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Comenzar Mi Viaje →';
+            }
+        }
+        
+        // Verificar si ya está registrado
+        window.addEventListener('DOMContentLoaded', () => {
+            const isRegistered = localStorage.getItem('aio_registered');
+            if (isRegistered === 'true') {
+                const userName = localStorage.getItem('aio_userName');
+                if (confirm(`Ya tienes una cuenta registrada como ${userName}.\n\n¿Quieres continuar con esa cuenta o crear una nueva?`)) {
+                    window.location.href = 'dashboard.html';
+                } else {
+                    localStorage.clear();
+                }
+            }
+        });
+    </script>
+</body>
+</html>
