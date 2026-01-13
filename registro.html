@@ -587,22 +587,30 @@
             submitBtn.textContent = 'Registrando...';
             
             try {
-                // Recopilar datos del formulario
-                const formData = {
-                    action: 'registrarUsuario',
-                    nombreCompleto: document.getElementById('nombreCompleto').value.trim(),
-                    email: document.getElementById('email').value.trim(),
-                    zonaHoraria: document.getElementById('zonaHoraria').value,
-                    notificaciones: {
-                        notif_5am: document.getElementById('notif1').checked,
-                        notif_8am: document.getElementById('notif2').checked,
-                        notif_11am: document.getElementById('notif3').checked,
-                        notif_2pm: document.getElementById('notif4').checked,
-                        notif_5pm: document.getElementById('notif5').checked,
-                        notif_8pm: document.getElementById('notif6').checked,
-                        notif_9pm: document.getElementById('notif7').checked
-                    }
-                };
+                // Validar contraseñas
+const password = document.getElementById('password').value;
+const confirmPassword = document.getElementById('confirmPassword').value;
+
+if (password !== confirmPassword) {
+    alert('❌ Las contraseñas no coinciden. Por favor verifica.');
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Comenzar Mi Viaje →';
+    return;
+}
+
+if (password.length < 6) {
+    alert('❌ La contraseña debe tener al menos 6 caracteres.');
+    submitBtn.disabled = false;
+    submitBtn.textContent = 'Comenzar Mi Viaje →';
+    return;
+}
+
+const formData = {
+    action: 'registrarUsuario',
+    nombreCompleto: document.getElementById('nombreCompleto').value.trim(),
+    email: document.getElementById('email').value.trim(),
+    password: password,
+    zonaHoraria: document.getElementById('zonaHoraria').value,
                 
                 // Enviar a Google Sheets
                 const response = await fetch(API_URL, {
