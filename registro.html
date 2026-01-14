@@ -580,83 +580,93 @@
         const API_URL = 'https://script.google.com/macros/s/AKfycbwuSntFBL1Fm0iySQs-yYqN9oIu7WWYeng2Qm3ZJMG6m4FJRF4jm3UpF2HASIoNriG35g/exec';
         
         async function handleSubmit(event) {
-            event.preventDefault();
+    event.preventDefault();
+    
+    const submitBtn = document.getElementById('submitBtn');
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Registrando...';
+    
+    try {
+        // Validar contraseñas
+        const password = document.getElementById('password').value;
+        const confirmPassword = document.getElementById('confirmPassword').value;
+        
+        if (password !== confirmPassword) {
+            alert('❌ Las contraseñas no coinciden. Por favor verifica.');
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Comenzar Mi Viaje →';
+            return;
+        }
+        
+        if (password.length < 6) {
+            alert('❌ La contraseña debe tener al menos 6 caracteres.');
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Comenzar Mi Viaje →';
+            return;
+        }
+        
+        const formData = {
+            action: 'registrarUsuario',
+            nombreCompleto: document.getElementById('nombreCompleto').value.trim(),
+            email: document.getElementById('email').value.trim(),
+            password: password,
+            zonaHoraria: document.getElementById('zonaHoraria').value,
+            notificaciones: {
+                notif_5am: document.getElementById('notif_5am').checked,
+                notif_8am: document.getElementById('notif_8am').checked,
+                notif_11am: document.getElementById('notif_11am').checked,
+                notif_2pm: document.getElementById('notif_2pm').checked,
+                notif_5pm: document.getElementById('notif_5pm').checked,
+                notif_8pm: document.getElementById('notif_8pm').checked,
+                notif_9pm: document.getElementById('notif_9pm').checked
+            }
+        };
+        
+        // Enviar a Google Sheets
+        const response = await fetch(API_URL, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'text/plain',
+            },
+            body: JSON.stringify(formData)
+        });
+        
+        const data = await response.json();
+        
+        if (data.success) {
+            // Guardar en localStorage
+            localStorage.setItem('aio_userId', data.userId);
+            localStorage.setItem('aio_userName', formData.nombreCompleto);
+            localStorage.setItem('aio_userEmail', formData.email);
+            localStorage.setItem('aio_isLoggedIn', 'true');
             
-            const submitBtn = document.getElementById('submitBtn');
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'Registrando...';
+            // Mostrar mensaje de éxito
+            const notificacionesActivas = Object.values(formData.notificaciones).filter(v => v).length;
             
-            try {
-                // Validar contraseñas
-const password = document.getElementById('password').value;
-const confirmPassword = document.getElementById('confirmPassword').value;
-
-if (password !== confirmPassword) {
-    alert('❌ Las contraseñas no coinciden. Por favor verifica.');
-    submitBtn.disabled = false;
-    submitBtn.textContent = 'Comenzar Mi Viaje →';
-    return;
-}
-
-if (password.length < 6) {
-    alert('❌ La contraseña debe tener al menos 6 caracteres.');
-    submitBtn.disabled = false;
-    submitBtn.textContent = 'Comenzar Mi Viaje →';
-    return;
-}
-
-const formData = {
-    action: 'registrarUsuario',
-    nombreCompleto: document.getElementById('nombreCompleto').value.trim(),
-    email: document.getElementById('email').value.trim(),
-   password: password,
-zonaHoraria: document.getElementById('zonaHoraria').value,
-notificaciones: {
-    notif_5am: document.getElementById('notif_5am').checked,
-    notif_8am: document.getElementById('notif_8am').checked,
-    notif_11am: document.getElementById('notif_11am').checked,
-    notif_2pm: document.getElementById('notif_2pm').checked,
-    notif_5pm: document.getElementById('notif_5pm').checked,
-    notif_8pm: document.getElementById('notif_8pm').checked,
-    notif_9pm: document.getElementById('notif_9pm').checked
-}
-                
-                // Enviar a Google Sheets
-                const response = await fetch(API_URL, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'text/plain',
-                    },
-                    body: JSON.stringify(formData)
-                });
-                
-                const data = await response.json();
-                
-                if (data.success) {
-                    // Guardar User ID
-                    localStorage.setItem('aio_userId', data.userId);
-                    localStorage.setItem('aio_userName', formData.nombreCompleto);
-                    localStorage.setItem('aio_userEmail', formData.email);
-                    localStorage.setItem('aio_registered', 'true');
-                    
-                    // Mensaje de éxito
-                    alert(`🎉 ¡Bienvenido, ${formData.nombreCompleto.split(' ')[0]}!
+            alert(`✅ ¡Bienvenido, ${formData.nombreCompleto.split(' ')[0]}!
 
 ✅ Registro completado
 ✅ ID de usuario: ${data.userId}
 ✅ Notificaciones configuradas
 
 Siguiente paso: Define tus metas anuales.`);
-                    
-                    // Redirigir a configuración de metas
-                    window.location.href = 'configuracion-metas.html';
-                    
-                } else {
-                    throw new Error(data.message || 'Error al registrar');
-                }
-                
-            } catch (error) {
-                console.error('Error:', error);
+            
+            // Redirigir a configuración de metas
+            window.location.href = 'configuracion-metas.html';
+            
+        } else {
+            alert('❌ Error: ' + data.message);
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Comenzar Mi Viaje →';
+        }
+        
+    } catch (error) {
+        console.error('Error:', error);
+        alert('❌ Error al registrar. Por favor intenta nuevamente.');
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Comenzar Mi Viaje →';
+    }
+}
                 
                 // Guardar localmente como respaldo
                 const tempUserId = 'USER' + Date.now();
