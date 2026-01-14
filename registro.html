@@ -609,8 +609,17 @@ const formData = {
     action: 'registrarUsuario',
     nombreCompleto: document.getElementById('nombreCompleto').value.trim(),
     email: document.getElementById('email').value.trim(),
-    password: password,
-    zonaHoraria: document.getElementById('zonaHoraria').value,
+   password: password,
+zonaHoraria: document.getElementById('zonaHoraria').value,
+notificaciones: {
+    notif_5am: document.getElementById('notif_5am').checked,
+    notif_8am: document.getElementById('notif_8am').checked,
+    notif_11am: document.getElementById('notif_11am').checked,
+    notif_2pm: document.getElementById('notif_2pm').checked,
+    notif_5pm: document.getElementById('notif_5pm').checked,
+    notif_8pm: document.getElementById('notif_8pm').checked,
+    notif_9pm: document.getElementById('notif_9pm').checked
+}
                 
                 // Enviar a Google Sheets
                 const response = await fetch(API_URL, {
